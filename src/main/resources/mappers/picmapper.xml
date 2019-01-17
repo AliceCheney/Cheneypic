@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.alice.alicepic.dao.PicDao">
+    <insert id="insertPic" parameterType="com.alice.alicepic.entity.Pic">
+        insert into pic(pic_name,description,src,time)
+        values (#{pic_name},#{description},#{src},#{time})
+    </insert>
+    <select id="selectAllPic" resultType="com.alice.alicepic.entity.Pic">
+        select * from pic
+    </select>
+    <select id="selectPic" resultType="com.alice.alicepic.entity.Pic">
+        select * from pic order by pic_id desc limit #{pageStart},#{pageSize}
+    </select>
+    <update id="upLikes">
+        update pic set likes=likes+1 where pic_id =#{id}
+    </update>
+    <update id="upDownload">
+        update pic set download=download+1 where pic_id=#{id}
+    </update>
+</mapper>
