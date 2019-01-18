@@ -2,6 +2,7 @@ package com.alice.alicepic.controller;
 
 import com.alice.alicepic.entity.Pic;
 import com.alice.alicepic.entity.PicPro;
+import com.alice.alicepic.entity.Pics;
 import com.alice.alicepic.service.PicService;
 import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -117,7 +119,7 @@ public class PicController {
             e.printStackTrace();
             return "error";
         }
-        if(picService.addPic(new Pic(name,desc,"image/"+cropUuid+fileType,new Date().getTime()))){
+        if(picService.addPics(new Pics(name,desc,"image/"+cropUuid+fileType,new Date().getTime()))){
             return "successful";
         }else {
             return "error";
@@ -127,6 +129,16 @@ public class PicController {
     @RequestMapping("/getallpic")
     public List<Pic> getallpic(){
         return picService.findAllPic();
+    }
+
+    @RequestMapping("/getpics")
+    public List<Pics> getallpics(){
+        List<Pics> picss = new ArrayList<>();
+        for (Pics pics:picService.findAllPics()){
+            pics.setSrc("http://39.105.22.132/"+pics.getSrc());
+            picss.add(pics);
+        }
+        return picss;
     }
 
     @RequestMapping("/getpic")
@@ -161,6 +173,44 @@ public class PicController {
     public String upDown(@RequestParam(value = "id")
                          int id){
         if (picService.upDown(id)){
+            return "successful";
+        }else {
+            return "error";
+        }
+    }
+
+    @RequestMapping("/agreepics")
+    public String agree(@RequestParam(value = "id")
+                        int id,
+                        @RequestParam(value = "name")
+                        String name,
+                        @RequestParam(value = "desc")
+                        String desc,
+                        @RequestParam(value = "src")
+                        String src,
+                        @RequestParam(value = "time")
+                        long time){
+        if(picService.delPicsById(id)){
+            if (picService.addPic(new Pic(name,desc,src,time))){
+                return "successful";
+            }else {
+                return "error";
+            }
+        }else {
+            return "error";
+        }
+    }
+
+    @RequestMapping("/delpics")
+    public String delPics(@RequestParam(value = "id")
+                          int id,
+                          @RequestParam(value = "src")
+                          String src){
+        if (picService.delPicsById(id)){
+            File file = new File("/usr/share/nginx/html/"+src);
+            if (file.isFile()&&file.exists()){
+                file.delete();
+            }
             return "successful";
         }else {
             return "error";

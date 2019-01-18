@@ -18,4 +18,14 @@
     <update id="upDownload">
         update pic set download=download+1 where pic_id=#{id}
     </update>
+    <insert id="insertPics" parameterType="com.alice.alicepic.entity.Pics">
+        insert into pics(pic_name,description,src,time)
+        values (#{pic_name},#{description},#{src},#{time})
+    </insert>
+    <select id="selectAllPics" resultType="com.alice.alicepic.entity.Pics">
+        select * from pics
+    </select>
+    <delete id="deletePicsId">
+        delete from pics where pic_id =#{id}
+    </delete>
 </mapper>

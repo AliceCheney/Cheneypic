@@ -3,6 +3,7 @@ package com.alice.alicepic.service.serviceimpl;
 import com.alice.alicepic.dao.PicDao;
 import com.alice.alicepic.entity.Pic;
 import com.alice.alicepic.entity.PicPro;
+import com.alice.alicepic.entity.Pics;
 import com.alice.alicepic.service.PicService;
 import com.alice.alicepic.until.ChangePicPro;
 import org.springframework.stereotype.Service;
@@ -38,5 +39,20 @@ public class PicServiceImpl implements PicService {
     @Override
     public boolean upDown(int id) {
         return 1==picDao.upDownload(id);
+    }
+
+    @Override
+    public boolean addPics(Pics pics) {
+        return 1==picDao.insertPics(pics);
+    }
+
+    @Override
+    public List<Pics> findAllPics() {
+        return picDao.selectAllPics();
+    }
+
+    @Override
+    public boolean delPicsById(int id) {
+        return 1==picDao.deletePicsId(id);
     }
 }

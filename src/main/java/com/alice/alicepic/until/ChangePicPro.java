@@ -14,7 +14,7 @@ public class ChangePicPro {
         }
         List<PicPro> picPros = new ArrayList<>();
         for (Pic pic:pics){
-            picPros.add(new PicPro(pic.getPic_id(),pic.getPic_name(),pic.getDescription(),pic.getLikes(),pic.getSrc(),TimeType.getMessageTimeText(pic.getTime()),pic.getDownload()));
+            picPros.add(new PicPro(pic.getPic_id(),pic.getPic_name(),pic.getDescription(),pic.getLikes(),pic.getSrc(),TimeType.getLastSendMessageTimeText(pic.getTime()),pic.getDownload()));
         }
         return picPros;
     }
