@@ -9,6 +9,7 @@ import com.alice.alicepic.until.ChangePicPro;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -54,5 +55,13 @@ public class PicServiceImpl implements PicService {
     @Override
     public boolean delPicsById(int id) {
         return 1==picDao.deletePicsId(id);
+    }
+
+    @Override
+    public List<Pic> findPicLikeName(String name,int pageNumber,int pageSize) {
+        if(name.equals("")){
+            return new ArrayList<>();
+        }
+        return picDao.selectPicLikeName(name,(pageNumber-1)*pageSize,pageSize);
     }
 }

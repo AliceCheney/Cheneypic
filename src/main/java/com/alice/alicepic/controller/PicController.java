@@ -216,4 +216,13 @@ public class PicController {
             return "error";
         }
     }
+    @RequestMapping("/selectpiclikename")
+    public List<Pic> selectPicLikeName(@RequestParam(value = "name")
+                                       String name,
+                                       @RequestParam(value = "pagenumber")
+                                       int number,
+                                       @RequestParam(value = "pagesize")
+                                       int size){
+        return picService.findPicLikeName(name,number,size);
+    }
 }

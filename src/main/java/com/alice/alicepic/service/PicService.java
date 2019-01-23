@@ -15,4 +15,5 @@ public interface PicService {
     boolean addPics(Pics pics);
     List<Pics> findAllPics();
     boolean delPicsById(int id);
+    List<Pic> findPicLikeName(String name,int pageNumber,int pageSize);
 }

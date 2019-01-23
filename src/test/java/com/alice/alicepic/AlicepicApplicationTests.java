@@ -23,6 +23,8 @@ import java.util.UUID;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class AlicepicApplicationTests {
+	@Resource
+	PicService picService;
 
 	@Test
 	public void contextLoads() {

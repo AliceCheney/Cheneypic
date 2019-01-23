@@ -28,4 +28,8 @@
     <delete id="deletePicsId">
         delete from pics where pic_id =#{id}
     </delete>
+    <select id="selectPicLikeName" resultType="com.alice.alicepic.entity.Pic">
+        select * from pic where pic_name like concat(concat('%',#{name},'%'))
+        order by pic_id desc limit #{pageStart},#{pageSize}
+            </select>
 </mapper>
